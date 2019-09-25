@@ -18,7 +18,7 @@ int main(){
     int fd;
     // event3 corresponds to the keyboard
     if ((fd = open("/dev/input/event3", O_RDONLY)) < 0) {
-        perror("Couldn't open input device");
+        perror("Couldn't open input device\n");
         return 1;
     }
 
@@ -26,7 +26,7 @@ int main(){
     struct input_event ie;
     while (1) {
         if(read(fd, &ie, sizeof(ie)) < 0){
-            fprintf(stderr, "Error reading input");
+            fprintf(stderr, "Error reading input\n");
             return 1;
         }
 
@@ -36,7 +36,7 @@ int main(){
             snprintf(lightCommand, BUFSIZ, "sudo ectool lightbar 4 %X %X %X\n",
                 random() % 255, random() % 255, random() % 255);
             if(system(lightCommand)){
-                fprintf(stderr, "Error changing lightbar color.");
+                fprintf(stderr, "Error changing lightbar color.\n");
                 return 1;
             }
         }
